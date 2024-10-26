@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Monitoring App</title>
+</head>
+<body>
+    <h1>Weather Monitoring App</h1>
+    <input type="text" id="cityInput" placeholder="Enter City Name">
+    <button onclick="getWeather()">Get Weather</button>
+    <div id="weatherDisplay"></div>
+
+    <script>
+        async function getWeather() {
+            const cityName = document.getElementById('cityInput').value;
+            const response = await fetch(`/weather?city=${cityName}`);
+            const data = await response.json();
+
+            const weatherDisplay = document.getElementById('weatherDisplay');
+            if (data.error) {
+                weatherDisplay.textContent = `Error: ${data.error}`;
+            } else {
+                weatherDisplay.textContent = `The temperature in ${cityName} is ${data.temp}°C with ${data.description}.`;
+            }
+        }
+    </script>
+</body>
+</html>
